@@ -112,3 +112,23 @@ FROM
       ,[100+])  
   )AS unpvt_mal
 ) pop;
+
+ALTER TABLE dbo.grupy_wiekowe
+ADD country_id int;
+
+ALTER TABLE dbo.grupy_wiekowe
+ADD age_id int;
+
+UPDATE dbo.grupy_wiekowe
+SET dbo.grupy_wiekowe.country_id = (
+SELECT country_id
+FROM kraj
+WHERE kraj.country = dbo.grupy_wiekowe.country
+);
+
+UPDATE dbo.grupy_wiekowe
+SET dbo.grupy_wiekowe.age_id = (
+SELECT age_id
+FROM lata
+WHERE lata.age = dbo.grupy_wiekowe.age
+);
